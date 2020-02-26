@@ -1,1 +1,3 @@
-.pytest_chase/
+.pytest_cache/
+*.json
+.vscode/
