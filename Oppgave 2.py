@@ -18,7 +18,7 @@ def psi_odde(E, V, L):
     psiH[0] = 0
     psiH[1] = 1
     for i in range(len(x)-2):
-        psiH[i+2] = -2*m*Dx**2/hbar**2*(E-V(x[i]))*psiH[i+1] + 2*psiH[i+1] - psiH[i]
+        psiH[i+2] = 2*m*Dx**2/hbar**2*(V(x[i+1]) - E)*psiH[i+1] + 2*psiH[i+1] - psiH[i]
     #Pga. symmetri, og for å ikke ta med 'psi0' to ganger:
     psiV = -psiH[-1:0:-1]
     psi = np.append(psiV, psiH)
@@ -30,8 +30,9 @@ def psi_jevn(E, V, L):
     x = np.arange(0, L, Dx)
     psiH = np.zeros(len(x))
     psiH[0] = 1
-    for i in range(len(x)-1):
-        psiH[i+1] = (-m*Dx**2/hbar**2*(E-V(x[i]))+1)*psiH[i]
+    psiH[1] = (m*Dx**2/hbar**2 *(V(x[0]) - E)+1)*psiH[0]
+    for i in range(len(x)-2):
+        psiH[i+2] = 2*m*Dx**2/hbar**2 * (V(x[i+1]- E)*psiH[i+1] + 2*psiH[i+1]) - psiH[i] 
     #    print(psiH[i+1])
     #Pga. symmetri, og for å ikke ta med 'psi0' to ganger:
     psiV = psiH[-1:0:-1]
